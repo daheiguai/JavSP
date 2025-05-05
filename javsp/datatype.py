@@ -133,6 +133,7 @@ class Movie:
         self.data_src = 'normal'        # 数据源：不同的数据源将使用不同的爬虫
         self.info: MovieInfo = None     # 抓取到的影片信息
         self.save_dir = None            # 存放影片、封面、NFO的文件夹路径
+        self.new_title = None           # 新的标题
         self.basename = None            # 按照命名模板生成的不包含路径和扩展名的basename
         self.nfo_file = None            # nfo文件的路径
         self.fanart_file = None         # fanart文件的路径
@@ -190,13 +191,13 @@ class Movie:
         if len(self.files) == 1:
             fullpath = self.files[0]
             ext = os.path.splitext(fullpath)[1]
-            newpath = os.path.join(self.save_dir, self.basename + ext)
+            newpath = os.path.join(self.save_dir, self.new_title + ext)
             move_file(fullpath, newpath)
             new_paths.append(newpath)
         else:
             for i, fullpath in enumerate(self.files, start=1):
                 ext = os.path.splitext(fullpath)[1]
-                newpath = os.path.join(self.save_dir, self.basename + f'-CD{i}' + ext)
+                newpath = os.path.join(self.save_dir, self.new_title + f'-CD{i}' + ext)
                 move_file(fullpath, newpath)
                 new_paths.append(newpath)
         self.new_paths = new_paths
