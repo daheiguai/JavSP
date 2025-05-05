@@ -324,7 +324,9 @@ def generate_names(movie: Movie):
         for sub_end in range(len(title_break), 0, -1):
             copyd['title'] = replace_illegal_chars(''.join(title_break[:sub_end]).strip())
             if Cfg().summarizer.move_files:
-                save_dir = os.path.normpath(Cfg().summarizer.path.output_folder_pattern.format(**copyd)).strip()
+                formatPath = Cfg().summarizer.path.output_folder_pattern.format(**copyd).strip().split('mimimi2635')
+                save_dir = os.path.normpath(formatPath[0])
+                new_title =  os.path.normpath(formatPath[1])
                 basename = os.path.normpath(Cfg().summarizer.path.basename_pattern.format(**copyd)).strip()
             else:
                 # 如果不整理文件，则保存抓取的数据到当前目录
@@ -337,6 +339,7 @@ def generate_names(movie: Movie):
             if remaining > 0:
                 movie.save_dir = save_dir
                 movie.basename = basename
+                movie.new_title = new_title
                 movie.nfo_file = os.path.join(save_dir, Cfg().summarizer.nfo.basename_pattern.format(**copyd) + '.nfo')
                 movie.fanart_file = os.path.join(save_dir, Cfg().summarizer.fanart.basename_pattern.format(**copyd) + '.jpg')
                 movie.poster_file = os.path.join(save_dir, Cfg().summarizer.cover.basename_pattern.format(**copyd) + '.jpg')
@@ -352,9 +355,12 @@ def generate_names(movie: Movie):
             ext = os.path.splitext(filebasename)[1]
             basename = filebasename.replace(ext, '')
         else:
-            save_dir = os.path.normpath(Cfg().summarizer.path.output_folder_pattern.format(**copyd)).strip()
+            formatPath = Cfg().summarizer.path.output_folder_pattern.format(**copyd).strip().split('mimimi2635')
+            save_dir = os.path.normpath(formatPath[0])
+            new_title = os.path.normpath(formatPath[1])
             basename = os.path.normpath(Cfg().summarizer.path.basename_pattern.format(**copyd)).strip()
         movie.save_dir = save_dir
+        movie.new_title = new_title
         movie.basename = basename
 
         movie.nfo_file = os.path.join(save_dir, Cfg().summarizer.nfo.basename_pattern.format(**copyd) + '.nfo')
@@ -464,23 +470,23 @@ def RunNormalMode(all_movies):
             if not os.path.exists(movie.save_dir):
                 os.makedirs(movie.save_dir)
 
-            inner_bar.set_description('下载封面图片')
-            if Cfg().summarizer.cover.highres:
-                cover_dl = download_cover(movie.info.covers, movie.fanart_file, movie.info.big_covers)
-            else:
-                cover_dl = download_cover(movie.info.covers, movie.fanart_file)
-            check_step(cover_dl, '下载封面图片失败')
-            cover, pic_path = cover_dl
+            # inner_bar.set_description('下载封面图片')
+            # if Cfg().summarizer.cover.highres:
+            #     cover_dl = download_cover(movie.info.covers, movie.fanart_file, movie.info.big_covers)
+            # else:
+            #     cover_dl = download_cover(movie.info.covers, movie.fanart_file)
+            # check_step(cover_dl, '下载封面图片失败')
+            # cover, pic_path = cover_dl
             # 确保实际下载的封面的url与即将写入到movie.info中的一致
-            if cover != movie.info.cover:
-                movie.info.cover = cover
+            # if cover != movie.info.cover:
+            #     movie.info.cover = cover
             # 根据实际下载的封面的格式更新fanart/poster等图片的文件名
-            if pic_path != movie.fanart_file:
-                movie.fanart_file = pic_path
-                actual_ext = os.path.splitext(pic_path)[1]
-                movie.poster_file = os.path.splitext(movie.poster_file)[0] + actual_ext
+            # if pic_path != movie.fanart_file:
+            #     movie.fanart_file = pic_path
+            #     actual_ext = os.path.splitext(pic_path)[1]
+            #     movie.poster_file = os.path.splitext(movie.poster_file)[0] + actual_ext
 
-            process_poster(movie)
+            # process_poster(movie)
 
             check_step(True)
 
