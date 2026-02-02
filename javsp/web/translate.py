@@ -181,7 +181,7 @@ def google_trans(texts, to='zh_CN'):
     global _google_trans_wait
     url = f"https://translate.google.com.hk/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl={to}&q={texts}"
     proxies = read_proxy()
-    r = requests.get(url, proxies=proxies)
+    r = requests.get(url, proxies=proxies,verify=False)
     while r.status_code == 429:
         logger.warning(f"HTTP {r.status_code}: {r.reason}: Google翻译请求超限，将等待{_google_trans_wait}秒后重试")
         time.sleep(_google_trans_wait)
