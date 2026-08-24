@@ -11,7 +11,8 @@ scanner:
     - 'Carib(beancom)?'
     - '[^a-z\d](f?hd|lt)[^a-z\d]'
   # 整理哪个文件夹下的影片？（此项留空时将在运行时询问）
-  input_directory: '/Users/mimimi/Downloads/zuozhong'
+  input_directory: '/Users/mimimi/Downloads/zuozhong2'
+#  input_directory: '/Users/mimimi/Downloads/zuozhong/番号'
   # 哪些后缀的文件应当视为影片？
   filename_extensions: [.3gp, .avi, .f4v, .flv, .iso, .m2ts, .m4v, .mkv, .mov, .mp4, .mpeg, .rm, .rmvb, .ts, .vob, .webm, .wmv, .strm, .mpg]
   # 扫描影片文件时忽略指定的文件夹
@@ -42,8 +43,9 @@ crawler:
   # 要使用的爬虫列表（汇总数据时从前到后进行）
   # airav avsox avwiki fanza fc2 fc2fan javbus javdb javlib javmenu jav321 mgstage prestige arzon arzon_iv
   selection:
-    normal: [airav, avsox, javbus, javdb, javlib, jav321, mgstage, prestige]
-#    normal: [javbus, javdb, jav321, mgstage, prestige]
+#    normal: [airav, avsox, javbus, javdb, javlib, jav321, mgstage, prestige]
+    normal: [javbus, javdb, jav321, mgstage, prestige]
+#    fc2: [fc2, avsox, javdb, javmenu, fc2ppvdb]
     fc2: [fc2, avsox, javdb, javmenu, fc2ppvdb]
     cid: [fanza]
     getchu: [dl_getchu]
@@ -154,13 +156,13 @@ translator:
   # 翻译引擎，可选: google, bing, baidu, claude(haiku), openai （Google可以直接免费使用。留空表示禁用翻译功能）
   # 进阶功能的文档 https://github.com/Yuukiy/JavSP/wiki/Translation-%7C-%E7%BF%BB%E8%AF%91
   engine:
-    name: google
+#    name: google
   ## 使用百度翻译: {{{
   # engine: 
-  #   name: baidu
-  #   # 百度翻译的APP ID和密钥
-  #   app_id: ''
-  #   api_key: ''
+     name: baidu
+     # 百度翻译的APP ID和密钥
+     app_id: ''
+     api_key: ''
   ## }}}
   ## 使用必应翻译: {{{
   # engine: 
